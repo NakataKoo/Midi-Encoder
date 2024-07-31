@@ -1,17 +1,21 @@
-# MusicBERT Offical
-
-This repository is the implementation of "Systematic Analysis of Music Representations from BERT".
-
+This repository is not official.
 
 ## Getting Started
 
 ### Environments
 
+仮想環境を構築：
+
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
 * Python 3.8.8
 * Ubuntu 20.04.2 LTS
 * Read [requirements.txt](/requirements.txt) for other Python libraries
 
-pip install -r requirements.txtを実行後、以下を実行:
+```pip install -r requirements.txt```を実行後、以下を実行:
 
 ```
 pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
@@ -27,6 +31,7 @@ mkdir data
 cd data
 wget http://hog.ee.columbia.edu/craffel/lmd/lmd_full.tar.gz
 tar -zxvf lmd_full.tar.gz
+rm lmd_full.tar.gz
 ```
 
 * [Lakh MIDI Dataset (LMD-full)](https://colinraffel.com/projects/lmd/)
@@ -44,6 +49,8 @@ python convert_remi.py --src_path "./data/lmd_full/" --dest_path "./data/lmd_ful
 
 ### Model Training
 You should modify [config.json](/config.json) for mode change ("BERT", "BERT-aug", "BERT-neighbor", "BERT-dropout"). By setting "strategy" (ex. ddp) in [train.py](/train.py) and "gpus" in [config.json](/config.json) (ex. [0, 1, 2]), you can train the models with distributed GPU settings of pytorch-lightining. Here is an example of BERT-neighbor configurations.
+
+以下のtrain.pyのpl.Trainerの「strategy」を例えばddpなどと設定し、上記のconfig.jsonの "gpus"(例: [0, 1, 2])を設定することで、pytorch-lightiningの分散GPU設定でモデルを学習することができます。
 
 ```json
 {
