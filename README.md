@@ -11,16 +11,36 @@ This repository is the implementation of "Systematic Analysis of Music Represent
 * Ubuntu 20.04.2 LTS
 * Read [requirements.txt](/requirements.txt) for other Python libraries
 
+pip install -r requirements.txtを実行後、以下を実行:
+
+```
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torchdata==0.4.0
+```
+
 ### Data Download
+
+ルートディレクトリにて、以下を実行
+
+```
+mkdir data
+cd data
+wget http://hog.ee.columbia.edu/craffel/lmd/lmd_full.tar.gz
+tar -zxvf lmd_full.tar.gz
+```
 
 * [Lakh MIDI Dataset (LMD-full)](https://colinraffel.com/projects/lmd/)
 
 ### Data Preprocess
 
+ルートディレクトリに戻り以下を実行（1時間30分以上かかるかもしれない）:
+
 [convert_remi.py](/convert_remi.py) is to obtain the bar-level REMI+ representations from LMD. It supports the parallel processing by specifying the number of processes to --num_process argument.
 ```
 python convert_remi.py --src_path "./data/lmd_full/" --dest_path "./data/lmd_full_remi/" --num_process 100
 ```
+
+合計900万件以上のデータを取得できる
 
 ### Model Training
 You should modify [config.json](/config.json) for mode change ("BERT", "BERT-aug", "BERT-neighbor", "BERT-dropout"). By setting "strategy" (ex. ddp) in [train.py](/train.py) and "gpus" in [config.json](/config.json) (ex. [0, 1, 2]), you can train the models with distributed GPU settings of pytorch-lightining. Here is an example of BERT-neighbor configurations.
