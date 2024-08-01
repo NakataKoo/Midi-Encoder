@@ -22,6 +22,23 @@ pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1+cu1
 pip install torchdata==0.4.0
 ```
 
+Pytorchの最新バージョンだと、torchtextが使えないらしい。
+
+> 参考：https://github.com/pytorch/serve/issues/3066
+
+以下のリンクを参考に、Pytorch,CUDA,torchtextのバージョンを合わせる
+
+- https://pypi.org/project/torchtext/
+- https://pytorch.org/get-started/previous-versions/
+
+研究室のA40サーバー（CUDA 12.1）では、以下でも上手くいった(torch=2.2.0, CUDA=12.1, torchtext=0.17.0)
+
+```
+pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121
+pip install torchtext==0.17.0
+```
+
+
 ### Data Download
 
 ルートディレクトリにて、以下を実行
