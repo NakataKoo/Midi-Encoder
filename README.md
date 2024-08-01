@@ -62,7 +62,7 @@ rm lmd_full.tar.gz
 python convert_remi.py --src_path "./data/lmd_full/" --dest_path "./data/lmd_full_remi/" --num_process 100
 ```
 
-合計900万件以上のデータを取得できる
+合計9,970,591のデータを取得できる
 
 ### Model Training
 You should modify [config.json](/config.json) for mode change ("BERT", "BERT-aug", "BERT-neighbor", "BERT-dropout"). By setting "strategy" (ex. ddp) in [train.py](/train.py) and "gpus" in [config.json](/config.json) (ex. [0, 1, 2]), you can train the models with distributed GPU settings of pytorch-lightining. Here is an example of BERT-neighbor configurations.
